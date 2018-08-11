@@ -1,9 +1,142 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Board/Board.tscn" type="PackedScene" id=1]
+[ext_resource path="res://GameScreen/GameScreen.gd" type="Script" id=1]
+[ext_resource path="res://Board/Board.tscn" type="PackedScene" id=2]
+[ext_resource path="res://BaseTile/BaseTile-programmer-gfx.png" type="Texture" id=3]
+[ext_resource path="res://Tile-Select/BaseTile-Select/BaseTile-Select.gd" type="Script" id=4]
 
-[node name="GameScreen" type="Node" index="0"]
+[sub_resource type="StyleBoxFlat" id=1]
 
-[node name="Board" parent="." index="0" instance=ExtResource( 1 )]
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+bg_color = Color( 0.427017, 0.547047, 0.753906, 1 )
+draw_center = true
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.866069, 0.871094, 0.779221, 1 )
+border_blend = false
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+corner_detail = 8
+expand_margin_left = 0.0
+expand_margin_right = 0.0
+expand_margin_top = 0.0
+expand_margin_bottom = 0.0
+shadow_color = Color( 0, 0, 0, 0.6 )
+shadow_size = 0
+anti_aliasing = false
+anti_aliasing_size = 1
+_sections_unfolded = [ "Anti Aliasing", "Border", "Border Width", "Shadow" ]
+
+[node name="GameScreen" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Visibility", "Z Index" ]
+
+[node name="HUD" type="Control" parent="." index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Panel" type="Panel" parent="HUD" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 350.0
+margin_bottom = 360.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Rect", "custom_styles" ]
+
+[node name="Board" parent="." index="1" instance=ExtResource( 2 )]
+
+position = Vector2( 10, 5 )
+_sections_unfolded = [ "Cell", "Transform" ]
+
+[node name="GUI" type="Control" parent="." index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+margin_right = 40.0
+margin_bottom = -64.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Anchor", "Rect" ]
+
+[node name="Panel" type="Panel" parent="GUI" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 310.0
+margin_right = 300.0
+margin_bottom = 350.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_styles/panel = SubResource( 1 )
+_sections_unfolded = [ "Anchor", "Margin", "Rect", "custom_styles" ]
+
+[node name="BaseTile-Select" type="TextureButton" parent="GUI/Panel" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 5.0
+margin_right = 40.0
+margin_bottom = -5.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 3 )
+script = ExtResource( 4 )
+_sections_unfolded = [ "Margin", "Rect", "Textures", "Theme" ]
+
+[connection signal="pressed" from="GUI/Panel/BaseTile-Select" to="GUI/Panel/BaseTile-Select" method="_on_BaseTileSelect_pressed"]
+
+[connection signal="tileSelected" from="GUI/Panel/BaseTile-Select" to="." method="_on_BaseTileSelect_tileSelected"]
 
 
